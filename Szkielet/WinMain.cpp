@@ -66,6 +66,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
     case WM_CREATE:
         initD2(hwnd);
+        InitTimer(hwnd);
+        return 0;
+    case WM_TIMER:
+        OnTimer();
+        InvalidateRect(hwnd, nullptr, FALSE);
         return 0;
     case WM_PAINT:
         paintD2(hwnd);
@@ -75,6 +80,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         destroyD2();
         PostQuitMessage(0);
         DestroyWindow(hwnd);
+        ReleaseTimer(hwnd);
         return 0;
     }
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
