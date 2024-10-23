@@ -137,6 +137,7 @@
     <ClCompile Include="Elipse.cpp" />
     <ClCompile Include="Gradient.cpp" />
     <ClCompile Include="Lines.cpp" />
+    <ClCompile Include="Path.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +146,7 @@
     <ClInclude Include="Elipse.h" />
     <ClInclude Include="Gradient.h" />
     <ClInclude Include="Lines.h" />
+    <ClInclude Include="Path.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
