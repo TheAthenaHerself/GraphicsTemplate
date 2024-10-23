@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "Gradient.h"
 #include "Path.h"
-
+#include "Smoke.h"
 // Deklaracje u¿ycia pomocniczych funkcji
 using D2D1::RenderTargetProperties;
 using D2D1::HwndRenderTargetProperties;
@@ -55,7 +55,8 @@ void paintD2(HWND hwnd) {
     //setupElipse(d2d_factory, d2d_render_target);
     //setupAnimation(d2d_factory, d2d_render_target);
     //setupGradient(d2d_factory, d2d_render_target);
-    setupPath(d2d_factory, d2d_render_target);
+    //setupPath(d2d_factory, d2d_render_target);
+    setupSmoke(d2d_factory, d2d_render_target);
 
     d2d_render_target->BeginDraw();
 
@@ -63,7 +64,8 @@ void paintD2(HWND hwnd) {
     //drawElipse(d2d_render_target);
     //drawAnimation(d2d_render_target, hwnd, time);
     //drawGradient(d2d_render_target, hwnd, angle);
-    drawPath(d2d_render_target, hwnd, time_path);
+    //drawPath(d2d_render_target, hwnd, time_path);
+    drawSmoke(d2d_render_target, hwnd, time_path);
 
     if (d2d_render_target->EndDraw() == D2DERR_RECREATE_TARGET) {
         if (d2d_render_target) d2d_render_target->Release();
@@ -72,7 +74,8 @@ void paintD2(HWND hwnd) {
     //destroyElipse();
     //destroyAnimation();
     //destroyGradient();
-    destroyPath();
+    //destroyPath();
+    destroySmoke();
 }
 
 void destroyD2() {
