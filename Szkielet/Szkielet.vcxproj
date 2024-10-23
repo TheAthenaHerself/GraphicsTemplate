@@ -135,6 +135,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Direct.cpp" />
     <ClCompile Include="Elipse.cpp" />
+    <ClCompile Include="Gradient.cpp" />
     <ClCompile Include="Lines.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -142,6 +143,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Direct.h" />
     <ClInclude Include="Elipse.h" />
+    <ClInclude Include="Gradient.h" />
     <ClInclude Include="Lines.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

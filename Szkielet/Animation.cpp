@@ -53,7 +53,8 @@ void drawAnimation(ID2D1HwndRenderTarget* d2d_render_target, HWND hwnd, int time
         }
         
         D2D1_COLOR_F const brush_color_2 = {
-        .r = 1.0f, .g = std::sin(time * std::numbers::pi_v<float> / 180 + static_cast<float>(i)*4 / NR_width), .b = std::sin(time * std::numbers::pi_v<float> / 180 + static_cast<float>(i)*4 / NR_width), .a = 1.0f };
+        .r = 1.0f, .g = std::sin(time * std::numbers::pi_v<float> / 180 + static_cast<float>(i)*4 / NR_width),
+        .b = std::sin(time * std::numbers::pi_v<float> / 180 + static_cast<float>(i)*4 / NR_width), .a = 1.0f };
 
         brush->SetColor(brush_color_2);
 

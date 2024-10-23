@@ -3,6 +3,7 @@
 #include "Lines.h"
 #include "Elipse.h"
 #include "Animation.h"
+#include "Gradient.h"
 
 // Deklaracje u¿ycia pomocniczych funkcji
 using D2D1::RenderTargetProperties;
@@ -15,6 +16,7 @@ namespace {
     ID2D1HwndRenderTarget* d2d_render_target = nullptr;
     UINT_PTR timer;
     int time;
+    FLOAT angle = 0.0f;
     void createRenderTarget(HWND hwnd) {
         RECT rc;
         GetClientRect(hwnd, &rc);
@@ -49,20 +51,23 @@ void paintD2(HWND hwnd) {
 
     //setupLines(d2d_factory, d2d_render_target);
     //setupElipse(d2d_factory, d2d_render_target);
-    setupAnimation(d2d_factory, d2d_render_target);
+    //setupAnimation(d2d_factory, d2d_render_target);
+    setupGradient(d2d_factory, d2d_render_target);
 
     d2d_render_target->BeginDraw();
 
     //drawLines(d2d_render_target);
     //drawElipse(d2d_render_target);
-    drawAnimation(d2d_render_target, hwnd, time);
+    //drawAnimation(d2d_render_target, hwnd, time);
+    drawGradient(d2d_render_target, hwnd, angle);
 
     if (d2d_render_target->EndDraw() == D2DERR_RECREATE_TARGET) {
         if (d2d_render_target) d2d_render_target->Release();
     }
     //destroyLines();
     //destroyElipse();
-    destroyAnimation();
+    //destroyAnimation();
+    destroyGradient();
 }
 
 void destroyD2() {
@@ -78,6 +83,7 @@ void InitTimer(HWND hwnd) {
 
 void OnTimer() {
     time++;
+    angle += 3.0f;
 }
 
 void ReleaseTimer(HWND hwnd) {
