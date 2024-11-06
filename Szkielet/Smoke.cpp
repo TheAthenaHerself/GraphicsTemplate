@@ -27,6 +27,46 @@ namespace {
     D2D1_GRADIENT_STOP rad_stops_data[NUM_RAD_STOPS];
     D2D1_POINT_2F const ellipse_center = { .x = 800, .y = 500 };
     D2D1_POINT_2F const ellipse_radii = { .x = 700, .y = 400 };
+
+    FLOAT border_distance_x = 200.0f;
+    FLOAT border_distance_y = 200.0f;
+
+    struct Bubble {
+        FLOAT scale;
+        D2D1_POINT_2F speed;
+        FLOAT angle;
+        D2D1_POINT_2F place;
+    };
+    void drawBubble(ID2D1HwndRenderTarget* d2d_render_target, Bubble bubble) {
+        Matrix3x2F transformation = Matrix3x2F::Scale(0.1, 0.1, ellipse_radii);
+        transformation.SetProduct(
+            transformation,
+            Matrix3x2F::Scale(bubble.scale, bubble.scale, ellipse_radii));
+        transformation.SetProduct(
+            transformation,
+            Matrix3x2F::Rotation(bubble.angle, ellipse_radii));
+        transformation.SetProduct(
+            transformation,
+            Matrix3x2F::Translation(bubble.place.x - ellipse_radii.x, bubble.place.x - ellipse_radii.x));
+        d2d_render_target->SetTransform(transformation);
+        d2d_render_target->FillGeometry(path, rad_brush);
+        d2d_render_target->DrawGeometry(path, brush2, brush2_width);
+    }
+    void updateBubble(Bubble bubble, HWND hwnd) {
+        RECT rc;
+        GetClientRect(hwnd, &rc);
+        if (rc.left > border_distance_x + bubble.place.x ||
+            rc.right < bubble.place.x - border_distance_x ||
+            rc.top > border_distance_y + bubble.place.y ||
+            rc.bottom < bubble.place.y - border_distance_y) {
+            randomiseBubble(bubble);
+        }
+        else {
+            bubble.place.x += bubble.speed.x;
+            bubble.place.y += bubble.speed.y;
+        }
+    }
+    void randomiseBubble(Bubble bubble);
 }
 
 void setupSmoke(ID2D1Factory7* d2d_factory, ID2D1HwndRenderTarget* d2d_render_target) {
@@ -66,10 +106,8 @@ void setupSmoke(ID2D1Factory7* d2d_factory, ID2D1HwndRenderTarget* d2d_render_ta
 }
 void drawSmoke(ID2D1HwndRenderTarget* d2d_render_target, HWND hwnd, FLOAT time) {
     d2d_render_target->Clear(clear_color);
-    Matrix3x2F transformation = Matrix3x2F::Scale(0.5, 0.5, ellipse_radii);
-    d2d_render_target->SetTransform(transformation);
-    d2d_render_target->FillGeometry(path, rad_brush);
-    d2d_render_target->DrawGeometry(path, brush2, brush2_width);
+    drawBubble(d2d_render_target)
+    
 }
 void destroySmoke() {
     if (brush2) brush2->Release();
