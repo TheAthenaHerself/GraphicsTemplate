@@ -8,6 +8,7 @@
 #include "Path.h"
 #include "Smoke.h"
 #include "Writing.h"
+#include "BitmapLesson.h"
 using D2D1::RenderTargetProperties;
 using D2D1::HwndRenderTargetProperties;
 using D2D1::SizeU;
@@ -21,6 +22,7 @@ namespace {
     FLOAT angle = 0.0f;
     FLOAT time_path = 0.0f;
     FLOAT write_angle = 0.0f;
+    FLOAT bitmap_angle = 0.0f;
     void createRenderTarget(HWND hwnd) {
         RECT rc;
         GetClientRect(hwnd, &rc);
@@ -61,7 +63,8 @@ void paintD2(HWND hwnd) {
     //setupGradient(d2d_factory, d2d_render_target);
     //setupPath(d2d_factory, d2d_render_target);
     //setupSmoke(d2d_factory, d2d_render_target);
-    setupWriting(d2d_factory, d2d_render_target);
+    //setupWriting(d2d_factory, d2d_render_target);
+    setupBitmap(d2d_factory, d2d_render_target);
 
     d2d_render_target->BeginDraw();
 
@@ -71,7 +74,8 @@ void paintD2(HWND hwnd) {
     //drawGradient(d2d_render_target, hwnd, angle);
     //drawPath(d2d_render_target, hwnd, time_path);
     //drawSmoke(d2d_render_target, hwnd, time_path);
-    drawWriting(d2d_render_target, write_angle, hwnd);
+    //drawWriting(d2d_render_target, write_angle, hwnd);
+    drawBitmap(d2d_render_target, bitmap_angle);
 
     if (d2d_render_target->EndDraw() == D2DERR_RECREATE_TARGET) {
         if (d2d_render_target) d2d_render_target->Release();
@@ -82,7 +86,8 @@ void paintD2(HWND hwnd) {
     //destroyGradient();
     //destroyPath();
     //destroySmoke();
-    destroyWriting();
+    //destroyWriting();
+    destroyBitmap();
 }
 
 void destroyD2() {
@@ -99,6 +104,7 @@ void OnTimer() {
     angle += 3.0f;
     time_path += 0.05f;
     write_angle += 0.5f;
+    bitmap_angle += 1.5f;
 }
 
 void ReleaseTimer(HWND hwnd) {

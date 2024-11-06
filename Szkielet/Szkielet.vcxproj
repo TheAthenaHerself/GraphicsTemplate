@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BitmapLesson.cpp" />
     <ClCompile Include="Direct.cpp" />
     <ClCompile Include="Elipse.cpp" />
     <ClCompile Include="Gradient.cpp" />
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="BitmapLesson.h" />
     <ClInclude Include="Direct.h" />
     <ClInclude Include="Elipse.h" />
     <ClInclude Include="Gradient.h" />
