@@ -59,14 +59,14 @@ namespace {
             rc.right < bubble.place.x - border_distance_x ||
             rc.top > border_distance_y + bubble.place.y ||
             rc.bottom < bubble.place.y - border_distance_y) {
-            randomiseBubble(bubble);
+            //randomiseBubble(bubble);
         }
         else {
             bubble.place.x += bubble.speed.x;
             bubble.place.y += bubble.speed.y;
         }
     }
-    void randomiseBubble(Bubble bubble);
+    //void randomiseBubble(Bubble bubble);
 }
 
 void setupSmoke(ID2D1Factory7* d2d_factory, ID2D1HwndRenderTarget* d2d_render_target) {
@@ -106,8 +106,6 @@ void setupSmoke(ID2D1Factory7* d2d_factory, ID2D1HwndRenderTarget* d2d_render_ta
 }
 void drawSmoke(ID2D1HwndRenderTarget* d2d_render_target, HWND hwnd, FLOAT time) {
     d2d_render_target->Clear(clear_color);
-    drawBubble(d2d_render_target)
-    
 }
 void destroySmoke() {
     if (brush2) brush2->Release();
