@@ -2,6 +2,7 @@
 #include <cmath>
 #include <array>
 #include <wincodec.h>
+#include <stdexcept>
 #include "BitmapLesson.h"
 
 using D2D1::BitmapProperties;
@@ -14,6 +15,7 @@ using std::array;
 using D2D1::SizeU;
 
 namespace {
+    HRESULT error_code;
     ID2D1SolidColorBrush* brush = nullptr;
     IWICImagingFactory* pIWICFactory = nullptr;
     D2D1_COLOR_F const brush_color_1 = {
@@ -101,14 +103,19 @@ namespace {
 }
 
 void setupBitmap(ID2D1Factory7* d2d_factory, ID2D1HwndRenderTarget* d2d_render_target) {
-    CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
-    //...
-    CoCreateInstance(
+    error_code = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+    if (error_code != S_OK && error_code != S_FALSE) {
+        throw std::runtime_error("Failed to CoInitializeEx.");
+    }
+    error_code = CoCreateInstance(
         CLSID_WICImagingFactory,
         nullptr,
         CLSCTX_INPROC_SERVER,
         __uuidof(IWICImagingFactory),
         reinterpret_cast<LPVOID*>(&pIWICFactory));
+    if (error_code != S_OK) {
+        throw std::runtime_error("Failed to CoCreateInstance.");
+    }
     d2d_render_target->CreateSolidColorBrush(
         brush_color_1, &brush);
     d2d_render_target->CreateBitmap(
